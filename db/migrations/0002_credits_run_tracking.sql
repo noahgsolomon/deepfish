@@ -1,0 +1,1 @@
+ALTER TABLE "deepfish_workflow_runs" ADD COLUMN "credits_charged" real DEFAULT 0 NOT NULL;

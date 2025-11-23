@@ -1,0 +1,14 @@
+node_modules/
+.vercel/
+apps/desktop/node_modules
+apps/web/node_modules
+apps/web/.env
+apps/desktop/.env
+bun.lockb
+package-lockb
+apps/desktop/bun.lockb
+apps/desktop/package-lockb
+apps/web/bun.lockb
+apps/web/package-lockb
+apps/web/.next/
+apps/desktop/.next/

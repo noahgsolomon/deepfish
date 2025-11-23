@@ -1,0 +1,13 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth-callback
+Disallow: /sync
+Disallow: /_next/
+Disallow: /purchase-result
+
+# Crawl delay to be respectful
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://deepfi.sh/sitemap.xml

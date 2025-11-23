@@ -1,0 +1,907 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+/* Rainbow border animation */
+@keyframes rainbow-border {
+  0% {
+    border-color: rgba(255, 0, 0, 0.7);
+  }
+
+  14% {
+    border-color: rgba(255, 127, 0, 0.7);
+  }
+
+  28% {
+    border-color: rgba(255, 255, 0, 0.7);
+  }
+
+  42% {
+    border-color: rgba(0, 255, 0, 0.7);
+  }
+
+  56% {
+    border-color: rgba(0, 0, 255, 0.7);
+  }
+
+  70% {
+    border-color: rgba(75, 0, 130, 0.7);
+  }
+
+  84% {
+    border-color: rgba(148, 0, 211, 0.7);
+  }
+
+  100% {
+    border-color: rgba(255, 0, 0, 0.7);
+  }
+}
+
+/* Rainbow border animations with different starting positions */
+.border-rainbow-1 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: 0s;
+}
+
+.border-rainbow-2 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -1.25s;
+  /* 10s ÷ 8 = 1.25s */
+}
+
+.border-rainbow-3 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -2.5s;
+}
+
+.border-rainbow-4 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -3.75s;
+}
+
+.border-rainbow-5 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -5s;
+}
+
+.border-rainbow-6 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -6.25s;
+}
+
+.border-rainbow-7 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -7.5s;
+}
+
+.border-rainbow-8 {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -8.75s;
+}
+
+/* Hover variants for each border-rainbow */
+.hover\:border-rainbow-1:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: 0s;
+}
+
+.hover\:border-rainbow-2:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -1.25s;
+}
+
+.hover\:border-rainbow-3:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -2.5s;
+}
+
+.hover\:border-rainbow-4:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -3.75s;
+}
+
+.hover\:border-rainbow-5:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -5s;
+}
+
+.hover\:border-rainbow-6:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -6.25s;
+}
+
+.hover\:border-rainbow-7:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -7.5s;
+}
+
+.hover\:border-rainbow-8:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: -8.75s;
+}
+
+/* Custom scrollbar for terminal effect */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme("colors.terminal.background");
+  border: 1px solid theme("colors.border.default");
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme("colors.border.default");
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.border.strong");
+}
+
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015) 50%,
+    rgba(0, 0, 0, 0.015) 50%
+  );
+  background-size: 100% 4px;
+}
+
+.scanlines-terminal {
+  background-color: theme("colors.terminal.background");
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 20%,
+    rgba(0, 0, 0, 0.03) 20%
+  );
+  background-size: 100% 4px;
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitch 2.5s infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  1% {
+    text-shadow:
+      -3px 0 #0ff,
+      3px 0 #f0f;
+    transform: translate(-1px, 0);
+  }
+
+  2% {
+    text-shadow:
+      3px 0 #f00,
+      -3px 0 #00f;
+    transform: translate(1px, 0);
+  }
+
+  3% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  20% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  20.5% {
+    text-shadow:
+      2px 0 #0f0,
+      -2px 0 #f00;
+  }
+
+  21% {
+    text-shadow:
+      -2px 0 #ff0,
+      2px 0 #0ff;
+  }
+
+  21.5% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  50% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  50.5% {
+    text-shadow:
+      -3px 0 #f0f,
+      3px 0 #0ff;
+    transform: translate(-1px, 0);
+  }
+
+  51% {
+    text-shadow:
+      3px 0 #00f,
+      -3px 0 #f00;
+    transform: translate(1px, 0);
+  }
+
+  51.5% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  75% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  75.5% {
+    text-shadow:
+      -2px 0 #0f0,
+      2px 0 #f0f;
+  }
+
+  76% {
+    text-shadow:
+      2px 0 #ff0,
+      -2px 0 #00f;
+  }
+
+  76.5% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  100% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+}
+
+/* Radiating effects for system stats */
+.radiate-green {
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.6);
+  animation: pulse-green 2s infinite;
+}
+
+.radiate-yellow {
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+  animation: pulse-yellow 2s infinite;
+}
+
+.radiate-red {
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.6);
+  animation: pulse-red 2s infinite;
+}
+
+.radiate-blue {
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 4px rgba(22, 163, 74, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(22, 163, 74, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 4px rgba(22, 163, 74, 0.4);
+  }
+}
+
+@keyframes pulse-yellow {
+  0% {
+    box-shadow: 0 0 4px rgba(234, 179, 8, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 4px rgba(234, 179, 8, 0.4);
+  }
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 4px rgba(220, 38, 38, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 4px rgba(220, 38, 38, 0.4);
+  }
+}
+
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+  }
+}
+
+/* Rainbow background animation */
+@keyframes rainbow-bg {
+  0% {
+    background-color: rgba(255, 0, 0, 0.8);
+  }
+
+  14% {
+    background-color: rgba(255, 127, 0, 0.8);
+  }
+
+  28% {
+    background-color: rgba(255, 255, 0, 0.8);
+  }
+
+  42% {
+    background-color: rgba(0, 255, 0, 0.8);
+  }
+
+  56% {
+    background-color: rgba(0, 0, 255, 0.8);
+  }
+
+  70% {
+    background-color: rgba(75, 0, 130, 0.8);
+  }
+
+  84% {
+    background-color: rgba(148, 0, 211, 0.8);
+  }
+
+  100% {
+    background-color: rgba(255, 0, 0, 0.8);
+  }
+}
+
+.bg-rainbow {
+  animation: rainbow-bg 10s linear infinite;
+}
+
+/* Custom animate-in class */
+.animate-in {
+  animation: animate-in 0.1s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Variants */
+.animate-in.slide-in-from-bottom {
+  transform: translateY(20px);
+}
+
+.animate-in.slide-in-from-top {
+  transform: translateY(-20px);
+}
+
+.animate-in.zoom-in {
+  transform: scale(0.95);
+}
+
+.animate-in.fade-in {
+  transform: none;
+}
+
+/* Context menu specific animation */
+.animate-in.context-menu {
+  animation: context-menu-in 0.1s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+@keyframes context-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Keep your zoom-in-95 working properly */
+.animate-in.zoom-in-95 {
+  transform: scale(0.95);
+}
+
+/* For fade effect */
+.animate-in.fade-in-0 {
+  transform: scale(0.98); /* Subtle scale for context menus */
+}
+
+.animate-out {
+  animation: animate-out 0.15s ease-out forwards;
+}
+
+@keyframes animate-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+:root {
+  --font-jetbrains-mono: "JetBrains Mono";
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  /* Custom surface colors for terminal aesthetic */
+  --color-surface-primary: #0a0a0a;
+  --color-surface-secondary: #111111;
+  --color-surface-tertiary: #151515;
+  --color-surface-hover: #181818;
+  --color-surface-elevated: #0f0f0f;
+  --color-surface-interactive: #1a1a1a;
+  --color-surface-accent: #2a2a2a;
+
+  /* Custom border colors */
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+  --color-border-default: rgba(255, 255, 255, 0.2);
+  --color-border-emphasis: rgba(255, 255, 255, 0.3);
+  --color-border-strong: rgba(255, 255, 255, 0.4);
+
+  /* Custom text colors */
+  --color-text-muted: rgba(255, 255, 255, 0.4);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-text-default: rgba(255, 255, 255, 0.7);
+  --color-text-emphasis: rgba(255, 255, 255, 0.8);
+  --color-text-primary: rgba(255, 255, 255, 0.98);
+
+  /* Terminal colors */
+  --color-terminal-background: #000000;
+  --color-terminal-surface: #0a0a0a;
+  --color-terminal-border: rgba(255, 255, 255, 0.2);
+  --color-terminal-track: #222222;
+
+  /* Brand colors */
+  --color-blue: rgba(99, 179, 237, 0.9);
+  --color-blue-60: rgba(99, 179, 237, 0.6);
+  --color-blue-40: rgba(99, 179, 237, 0.4);
+  --color-blue-20: rgba(99, 179, 237, 0.2);
+
+  --color-purple: rgba(183, 148, 244, 0.9);
+  --color-purple-60: rgba(183, 148, 244, 0.6);
+  --color-purple-40: rgba(183, 148, 244, 0.4);
+  --color-purple-20: rgba(183, 148, 244, 0.2);
+
+  --color-pink: rgba(246, 173, 255, 0.9);
+  --color-pink-60: rgba(246, 173, 255, 0.6);
+  --color-pink-40: rgba(246, 173, 255, 0.4);
+  --color-pink-20: rgba(246, 173, 255, 0.2);
+
+  --color-green: rgba(154, 230, 180, 0.9);
+  --color-green-60: rgba(154, 230, 180, 0.6);
+  --color-green-40: rgba(154, 230, 180, 0.4);
+  --color-green-20: rgba(154, 230, 180, 0.2);
+
+  --color-red: rgba(254, 178, 178, 0.9);
+  --color-red-60: rgba(254, 178, 178, 0.6);
+  --color-red-40: rgba(254, 178, 178, 0.4);
+  --color-red-20: rgba(254, 178, 178, 0.2);
+
+  --color-yellow: rgba(250, 240, 137, 0.9);
+  --color-yellow-60: rgba(250, 240, 137, 0.6);
+  --color-yellow-40: rgba(250, 240, 137, 0.4);
+  --color-yellow-20: rgba(250, 240, 137, 0.2);
+
+  --color-cyan: rgba(129, 230, 217, 0.9);
+  --color-cyan-60: rgba(129, 230, 217, 0.6);
+  --color-cyan-40: rgba(129, 230, 217, 0.4);
+  --color-cyan-20: rgba(129, 230, 217, 0.2);
+
+  /* Legacy compatibility colors */
+  --color-background: hsl(0 0% 0%);
+  --color-foreground: hsl(0 0% 98%);
+  --color-card: hsl(0 0% 5%);
+  --color-card-foreground: hsl(0 0% 98%);
+  --color-popover: hsl(0 0% 5%);
+  --color-popover-foreground: hsl(0 0% 98%);
+  --color-primary: hsl(0 0% 98%);
+  --color-primary-foreground: hsl(0 0% 0%);
+  --color-secondary: hsl(0 0% 20%);
+  --color-secondary-foreground: hsl(0 0% 98%);
+  --color-muted: hsl(0 0% 15%);
+  --color-muted-foreground: hsl(0 0% 70%);
+  --color-accent: hsl(0 0% 25%);
+  --color-accent-foreground: hsl(0 0% 98%);
+  --color-destructive: hsl(0 0% 80%);
+  --color-destructive-foreground: hsl(0 0% 0%);
+  --color-border: hsl(0 0% 20%);
+  --color-input: hsl(0 0% 20%);
+  --color-ring: hsl(0 0% 30%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  body,
+  body * {
+    font-family:
+      var(--font-jetbrains-mono), "JetBrains Mono", monospace !important;
+  }
+
+  @media screen and (max-width: 750px) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
+}
+
+/* Custom utility classes */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Hide React Flow attribution panel */
+.react-flow__panel.react-flow__attribution {
+  @apply hidden;
+}
+
+/* Style React Flow Controls */
+.react-flow__controls {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid theme("colors.border.default") !important;
+  border-radius: 0px !important;
+}
+
+.react-flow__controls button {
+  background-color: theme("colors.terminal.background") !important;
+  border-bottom: 1px solid theme("colors.border.default") !important;
+  color: white !important;
+}
+
+.react-flow__controls button:hover {
+  background-color: theme("colors.terminal.track") !important;
+}
+
+.react-flow__controls button path {
+  fill: white !important;
+}
+
+/* Style React Flow MiniMap */
+.react-flow__minimap {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid theme("colors.border.default") !important;
+  border-radius: 0px !important;
+}
+
+.react-flow__minimap-mask {
+  fill: rgba(255, 255, 255, 0.1) !important;
+}
+
+.react-flow__minimap-node {
+  fill: rgba(255, 255, 255, 0.8) !important;
+  stroke: none !important;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke-width: 4 !important;
+  stroke-dasharray: none !important;
+  animation: rainbow-stroke 2s linear infinite !important;
+}
+
+/* ------------------------------------------------------------------
+   Rainbow connection line for React Flow while dragging
+-------------------------------------------------------------------*/
+@keyframes rainbow-stroke {
+  0% {
+    stroke: rgba(255, 0, 0, 0.9);
+  }
+  14% {
+    stroke: rgba(255, 127, 0, 0.9);
+  }
+  28% {
+    stroke: rgba(255, 255, 0, 0.9);
+  }
+  42% {
+    stroke: rgba(0, 255, 0, 0.9);
+  }
+  56% {
+    stroke: rgba(0, 0, 255, 0.9);
+  }
+  70% {
+    stroke: rgba(75, 0, 130, 0.9);
+  }
+  84% {
+    stroke: rgba(148, 0, 211, 0.9);
+  }
+  100% {
+    stroke: rgba(255, 0, 0, 0.9);
+  }
+}
+
+/* Apply on-the-fly connection line styling */
+.react-flow__connectionline path {
+  stroke-width: 3px !important;
+  animation: rainbow-stroke 5s linear infinite;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px !important;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px !important;
+  }
+}
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1600px !important;
+  }
+}
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1800px !important;
+  }
+}
+@media (min-width: 2000px) {
+  .container {
+    max-width: 2000px !important;
+  }
+}
+@media (min-width: 2400px) {
+  .container {
+    max-width: 2400px !important;
+  }
+}
+
+/* Shimmer animation for credit banner */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.react-flow__node-comment {
+  z-index: -200 !important;
+}
+
+/* Custom styles for Variable DEX */
+
+/* Fallback image styles */
+.fallback-active .fallback {
+  display: flex !important;
+}
+
+/* Rainbow border animation */
+@keyframes rainbow-border {
+  0% {
+    border-color: rgba(255, 0, 0, 0.7);
+  }
+
+  14% {
+    border-color: rgba(255, 127, 0, 0.7);
+  }
+
+  28% {
+    border-color: rgba(255, 255, 0, 0.7);
+  }
+
+  42% {
+    border-color: rgba(0, 255, 0, 0.7);
+  }
+
+  56% {
+    border-color: rgba(0, 0, 255, 0.7);
+  }
+
+  70% {
+    border-color: rgba(75, 0, 130, 0.7);
+  }
+
+  84% {
+    border-color: rgba(148, 0, 211, 0.7);
+  }
+
+  100% {
+    border-color: rgba(255, 0, 0, 0.7);
+  }
+}
+
+.border-rainbow {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: calc(var(--random-delay, 0) * -10s);
+}
+
+/* Hover variant for border-rainbow */
+.hover\:border-rainbow:hover {
+  animation: rainbow-border 10s linear infinite;
+  animation-delay: calc(var(--random-delay, 0) * -10s);
+}
+
+/* Custom scrollbar for terminal effect */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme("colors.terminal.background");
+  border: 1px solid theme("colors.border.default");
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border: 1px solid theme("colors.terminal.background");
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eeeeee;
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitch 4s infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  1% {
+    text-shadow:
+      -3px 0 #0ff,
+      3px 0 #f0f;
+    transform: translate(-1px, 0);
+  }
+
+  2% {
+    text-shadow:
+      3px 0 #f00,
+      -3px 0 #00f;
+    transform: translate(1px, 0);
+  }
+
+  3% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  20% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  20.5% {
+    text-shadow:
+      2px 0 #0f0,
+      -2px 0 #f00;
+  }
+
+  21% {
+    text-shadow:
+      -2px 0 #ff0,
+      2px 0 #0ff;
+  }
+
+  21.5% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  50% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  50.5% {
+    text-shadow:
+      -3px 0 #f0f,
+      3px 0 #0ff;
+    transform: translate(-1px, 0);
+  }
+
+  51% {
+    text-shadow:
+      3px 0 #00f,
+      -3px 0 #f00;
+    transform: translate(1px, 0);
+  }
+
+  51.5% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  75% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  75.5% {
+    text-shadow:
+      -2px 0 #0f0,
+      2px 0 #f0f;
+  }
+
+  76% {
+    text-shadow:
+      2px 0 #ff0,
+      -2px 0 #00f;
+  }
+
+  76.5% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+
+  100% {
+    text-shadow: 0 0 0 #fff;
+    transform: translate(0);
+  }
+}
