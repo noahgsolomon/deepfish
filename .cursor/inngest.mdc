@@ -1,0 +1,45 @@
+---
+description: Inngest Background Jobs & Async Processing
+globs: src/inngest/**/*, src/server/api/routers/workflow.ts
+alwaysApply: false
+---
+
+# Inngest & Async Processing
+
+DeepFish uses Inngest for robust, serverless background processing, primarily
+for executing long-running AI workflows.
+
+## Core Concepts
+
+### 1. Event-Driven Architecture
+
+- **Events:** Triggers are sent via `inngest.send()`.
+- **Key Event:** `workflow/process` - Initiates a workflow execution.
+
+### 2. Workflow Execution (`process-workflow.ts`)
+
+The `process-workflow` function is the heart of the async engine.
+
+- **Step 1: Cache Check:** (Currently partial) Checks if a similar run exists to
+  avoid re-billing.
+- **Step 2: Create Run:** Inserts a record into `workflowRuns` table with
+  `processing` status.
+- **Step 3: Execution:** Calls the specific provider handler (`fal.ts` or
+  `replicate.ts`).
+- **Step 4: Result Handling:** Updates DB with success/failure and results.
+- **Step 5: Refund Logic:** Automatically refunds credits if execution fails.
+
+## Provider Abstraction
+
+- **Fal.ai:** `runFalWorkflow` handles interactions with Fal's queue/result API.
+- **Replicate:** `runReplicateWorkflow` handles Replicate's prediction API.
+- Both return standardized output formats to the Inngest function.
+
+## Current Status & Limitations
+
+- **Async Nature:** While Inngest is async, the current UI might rely on polling
+  or live connections for "real-time" feel.
+- **Resilience:** Designed to handle timeouts and retries automatically.
+- **Missing Features:** Full "offline" support (where a user leaves and returns
+  to see progress) is partially implemented but the "touch designer" style
+  persistent, always-on network graph execution is a planned evolution.

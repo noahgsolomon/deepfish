@@ -1,0 +1,60 @@
+---
+description: Workflow Composer & Node Editor Architecture
+globs:
+  src/app/(app)/(dynamic)/composer/**/*,
+  src/store/use-compose-workflow-store.ts, src/components/nodes/**/*
+alwaysApply: false
+---
+
+# Composer & Node Editor
+
+The Composer is the core visual interface for building AI workflows, implemented
+using React Flow (@xyflow/react).
+
+## State Management (`useComposeWorkflowStore`)
+
+The composer state is complex and managed via a global Zustand store.
+
+- **Nodes & Edges:** Standard React Flow data structures.
+- **History:** Custom implementation of Undo/Redo stack (`history`,
+  `pushHistory`, `undo`, `redo`).
+- **Viewport:** Tracks x, y, zoom.
+- **Selection:** Tracks currently selected nodes for copy/paste/delete.
+
+## Node System
+
+Nodes are custom React components registered in the React Flow instance.
+
+- **Primitive Nodes:** Basic logic (text, combine).
+- **Workflow Nodes:** Encapsulate entire AI models (Fal/Replicate wrappers).
+- **Comment Nodes:** Annotation.
+- **Result Nodes:** Display outputs.
+
+### Node Interaction
+
+- **Handles:** Connect inputs to outputs. Validation logic ensures compatible
+  data types (e.g., image output -> image input).
+- **Context Menus:** Custom context menus for nodes and edges
+  (`node-context-menu.tsx`) allow actions like "Delete", "Duplicate", "Run from
+  here".
+
+## Execution Model
+
+- **Client-Side Trigger:** The composer triggers execution which calls the
+  backend tRPC endpoint.
+- **Visual Feedback:**
+  - Running state is visualized on the nodes (spinners, progress bars).
+  - `useExecutionStore` tracks active run status mapped to `flowId`.
+- **Partial Execution:** The system supports running specific sub-graphs (though
+  mostly linear currently).
+
+## Planned Evolution (TouchDesigner-like)
+
+The goal is to move towards a fully async, server-side stateful graph:
+
+- **Persistent Graph:** The graph state lives on the server, not just client
+  memory.
+- **Continuous Execution:** Nodes process data as it arrives (reactive), rather
+  than request-response.
+- **Arbitrary Compute:** Ability to run custom code (Python/JS) in isolated
+  sandboxes as nodes.

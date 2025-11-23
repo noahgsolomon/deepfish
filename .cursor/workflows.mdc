@@ -1,0 +1,46 @@
+---
+description: Workflow Data Models & Logic
+globs: src/lib/workflow.ts, src/store/**/*, src/server/db/schema.ts
+alwaysApply: false
+---
+
+# Workflows
+
+Workflows in DeepFish are directed acyclic graphs (DAGs) that define a pipeline
+of AI operations.
+
+## Data Structure
+
+- **Workflow:** The top-level entity containing metadata (title, description,
+  author).
+- **Workflow Version:** Workflows can be versioned (immutable snapshots).
+- **Nodes:** Steps in the process.
+  - `type`: The model or operation type.
+  - `data`: Configuration (inputs, model parameters).
+- **Edges:** Connections defining data flow between nodes.
+
+## Types of Workflows
+
+1. **Dynamic Workflows:** Created in the Composer. Flexible, user-defined
+   graphs.
+2. **Curated/Imported Workflows:** Imported from Fal/Replicate. These are often
+   "single-node" wrappers or fixed pipelines.
+
+## Storage
+
+- **Database:** PostgreSQL (via Drizzle ORM).
+  - `workflows` table: Metadata.
+  - `workflow_runs` table: Execution history, inputs, outputs, costs.
+- **JSON:** The graph structure (nodes/edges) is often serialized as JSONB in
+  the database.
+
+## Execution Logic
+
+- **Input Resolution:** Inputs to a node can be static values or references to
+  outputs of previous nodes.
+- **Cost Calculation:** Credit cost is estimated based on the models used in the
+  graph.
+- **Ephemeral vs. Persisted:**
+  - **Ephemeral:** Playground runs, not saved to user library until explicitly
+    saved.
+  - **Persisted:** Saved workflows that can be shared or forked.

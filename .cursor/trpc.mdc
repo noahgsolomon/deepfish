@@ -1,0 +1,56 @@
+---
+description: tRPC & Data Fetching Architecture
+globs: src/trpc/**/*, src/server/api/**/*
+alwaysApply: false
+---
+
+# tRPC & Data Fetching
+
+DeepFish uses tRPC v11 (Next.js App Router compatible) combined with TanStack
+Query for end-to-end type-safe data fetching.
+
+## Architecture
+
+### 1. Server (`src/server/api`)
+
+- **Router Definition:** The `appRouter` (`routers/_app.ts`) is the root router
+  merging all sub-routers.
+- **Context:** `createContext` (`context.ts`) authenticates users via Clerk and
+  injects the DB instance.
+- **Procedures:**
+  - `publicProcedure`: Accessible by anyone.
+  - `protectedProcedure`: Requires valid Clerk session.
+- **Routers:** organized by domain (e.g., `workflow.ts`, `user.ts`,
+  `stripe.ts`).
+
+### 2. Client (`src/trpc/client.tsx`)
+
+- **TRPCProvider:** Wraps the app to provide the query client.
+- **Hooks:** `useTRPC` used in components to call procedures.
+  - Query: `const { data } = useTRPC.workflow.getWorkflow.useQuery(...)`
+  - Mutation:
+    `const { mutate } = useTRPC.workflow.executeWorkflow.useMutation(...)`
+
+### 3. Server-Side Calls (`src/trpc/server.tsx`)
+
+- **Hydration:** `HydrateClient` allows prefetching data on the server and
+  dehydrating it to the client.
+- **Caller:** `createCaller` allows calling tRPC procedures directly from server
+  components or other server-side logic (like Inngest functions) without HTTP
+  overhead.
+
+## Design Patterns
+
+- **Optimistic Updates:** Use React Query's `onMutate` for immediate UI feedback
+  (e.g., renaming a workflow).
+- **Invalidation:** Invalidate queries after mutations to refetch fresh data
+  (`utils.workflow.getAll.invalidate()`).
+- **Error Handling:** TRPC errors are thrown on the server and caught on the
+  client. Use `TRPCError` with appropriate codes (e.g., `UNAUTHORIZED`,
+  `NOT_FOUND`).
+
+## React Query Integration
+
+- **Stale Time:** Configured globally in `makeQueryClient` (default 30s).
+- **Hydration Boundary:** Used in `layout.tsx` or page components to pass
+  server-prefetched data to client components.

@@ -1,0 +1,61 @@
+---
+description: DeepFish Design System & UI Patterns
+globs: src/components/**/*, src/app/**/*
+alwaysApply: false
+---
+
+# Design System
+
+DeepFish uses a modern, dark-themed design system built on top of Tailwind CSS,
+Radix UI, and Shadcn UI patterns.
+
+## Core Stack
+
+- **Styling:** Tailwind CSS with custom configuration.
+- **Primitives:** Radix UI (accessible, unstyled components).
+- **Component Library:** Custom adaptation of Shadcn UI.
+- **Icons:** Lucide React.
+- **Animation:** Tailwind animate, React Flow (for graph).
+
+## Key Patterns
+
+### 1. Layout Structure
+
+- **Root Layout:** Global providers (`TRPCProvider`, `ClerkProvider`,
+  `PostHogProvider`) wrap the application.
+- **App Layout:** Uses a sidebar/topbar structure.
+- **Modals:** Managed via parallel routes (`@modal`) or localized state
+  depending on complexity.
+
+### 2. Component Architecture
+
+- **Base UI (`src/components/ui`):** Atomic components (Button, Input, Card).
+  These are "dumb" components focusing on visual consistency.
+- **Feature Components:** Located in feature directories (e.g.,
+  `src/components/modals`, `src/components/panels`).
+- **Composer Components:** Specific to the workflow editor, handling complex
+  interactions (nodes, edges, handles).
+
+### 3. Theming & Aesthetics
+
+- **Dark Mode:** The app is primarily dark mode.
+- **Colors:**
+  - `bg-background`: Main background.
+  - `bg-surface-primary`: Cards and elevated surfaces.
+  - `border-border-default` / `border-border-subtle`: Borders.
+  - `text-text-default` / `text-muted-foreground`: Typography hierarchy.
+- **Visuals:** Uses "rainbow" borders/accents for premium/active states
+  (`border-rainbow`).
+
+### 4. Typography
+
+- Font: `JetBrains Mono` (variable) implies a developer/technical aesthetic.
+- Classes: `text-sm font-medium` is a common baseline for UI elements.
+
+## Best Practices
+
+- **Composition:** Prefer composition over large monolithic components.
+- **Client vs Server:** Mark interactive components with `"use client"`. Keep
+  leaf nodes as client components where possible to maximize server rendering.
+- **Accessibility:** Ensure all interactive elements have accessible labels (via
+  `aria-label` or visible text).
