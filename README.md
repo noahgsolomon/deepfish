@@ -1,5 +1,10 @@
 # DeepFish
 
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/6a27f3d2-d995-4dae-925a-02d4ffe956d7" />
+<img width="1728" height="976" alt="Screenshot 2025-11-22 at 6 26 33 PM" src="https://github.com/user-attachments/assets/e016ac2c-0616-4003-b59e-3c55cafa6e40" />
+<img width="1725" height="996" alt="Screenshot 2025-11-22 at 6 26 56 PM" src="https://github.com/user-attachments/assets/c7f6507c-8831-484d-82f4-f3a4822111df" />
+
+
 DeepFish is a visual AI workflow composer platform that democratizes access to
 powerful generative AI models. It allows users to combine models from providers
 like Fal.ai and Replicate into sophisticated pipelines through a node-based
