@@ -23,14 +23,14 @@ interface—think "Zapier for AI" or a web-based ComfyUI.
 - **Database**: PostgreSQL + Drizzle ORM
 - **Auth**: Clerk
 - **Queues**: Inngest (Background processing)
-- **UI**: Tailwind CSS + Radix UI + React Flow
+- **UI**: Tailwind CSS + ShadCN UI + React Flow
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- PostgreSQL database
+- Docker (for local database)
 - Accounts for: Clerk, Stripe, Fal.ai, Replicate, Vercel Blob
 
 ### Installation
@@ -38,7 +38,7 @@ interface—think "Zapier for AI" or a web-based ComfyUI.
 1.  **Clone the repo**
 
     ```bash
-    git clone <repo-url>
+    git clone https://github.com/noahgsolomon/deepfish
     cd deepfish
     ```
 
@@ -56,11 +56,18 @@ interface—think "Zapier for AI" or a web-based ComfyUI.
 
     > **Note:** You will need your own API keys for all services.
 
-4.  **Database Setup**
+4.  **Database Setup** Start the local Postgres container and run migrations:
 
     ```bash
-    npm run db:push
+    # Start the database
+    docker compose up -d
+
+    # Apply migrations
+    npx drizzle-kit migrate
     ```
+
+    > **Note:** If you make schema changes, create a new migration with:
+    > `npx drizzle-kit generate --name="migration_name"`
 
 5.  **Run Development Server**
     ```bash
@@ -78,7 +85,9 @@ connections, validation, and execution.
 - **Current State:** Client-directed graph execution.
 - **Future Goal:** A fully persistent, server-side "network" model (akin to
   TouchDesigner) that supports arbitrary compute nodes and continuous async
-  processing, allowing workflows to run autonomously even when users are
+  processing, also allowing for sub-flows (flows/networks which are composed of
+  primitive nodes and also nodes which themselves are flows at infinite
+  recursive depth) allowing workflows to run autonomously even when users are
   offline.
 
 ### Async Processing
@@ -87,12 +96,9 @@ We use **Inngest** (`src/inngest`) to handle workflow executions. This ensures
 that long-running generation tasks (like video generation) don't block the UI
 and can handle failures/retries gracefully.
 
-## Contributing
-
-We welcome contributions! Please see the `.cursor/` directory for design
-documents (`.mdc` files) that explain our coding patterns and architecture in
-detail.
-
 ## License
 
 MIT
+
+// also note a lot of the things in public/ folder are outdated and can be
+removed
