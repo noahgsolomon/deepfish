@@ -157,7 +157,6 @@ export const useExecuteComposerWorkflow = ({
                     const ft = (nd.data as any)?.fieldType;
                     val = ft?.defaultValue ?? null;
                   }
-                  console.log("Primitive value:", val);
                   outputs.set(nd.id, val);
                   // done
                   conditionalSetNodes((prev) =>
@@ -186,7 +185,6 @@ export const useExecuteComposerWorkflow = ({
                     if (Array.isArray(v)) arr.push(...v);
                     else if (v != null) arr.push(v as string);
                   });
-                  console.log("CombineImages output array:", arr);
                   outputs.set(nd.id, arr);
                   // snapshot
                   persistProgressSnapshot();
@@ -296,7 +294,6 @@ export const useExecuteComposerWorkflow = ({
 
                   if (typeof wf.id === "number") {
                     // Check for cached results first
-                    console.log("[Composer] Checking for cached results...");
                     const cached = await checkCachedRun(wf.id, preparedIns);
 
                     if (cached.found && cached.output) {
@@ -391,7 +388,6 @@ export const useExecuteComposerWorkflow = ({
                     );
                     failedNodes.add(nd.id);
                     hadError = true;
-                    console.log("result", result);
                     onFailedWithError(result.error || "Runner returned error");
                   }
 

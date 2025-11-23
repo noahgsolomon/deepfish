@@ -918,9 +918,6 @@ export default function Composer({ slug }: { slug: string }) {
   const setGlobalDirty = useFlowStore((s) => s.setDirty);
 
   const [dirty, setDirty] = useState(false);
-  useEffect(() => {
-    console.log("dirty", dirty);
-  }, [dirty]);
 
   // Recompute dirty flag whenever the canvas mutates
   useEffect(() => {

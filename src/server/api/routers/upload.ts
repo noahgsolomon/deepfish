@@ -31,11 +31,9 @@ export async function uploadToBlob({
 
   // Default to octet-stream if still no content type
   contentType = contentType || "application/octet-stream";
-  console.log("contentType", contentType);
 
   // Determine extension from content type if not provided
   let extension = providedExtension;
-  console.log("extension", extension);
 
   if (!extension) {
     switch (contentType) {

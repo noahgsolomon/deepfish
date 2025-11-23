@@ -349,7 +349,6 @@ export default function AddNodeDialog({
               <CommandItem
                 key={w.title}
                 onSelect={() => {
-                  console.log("w", w);
                   // Build inputTypeMap
                   const map: Record<string, string> = {};
                   const props = w.data.schema.Input.properties;

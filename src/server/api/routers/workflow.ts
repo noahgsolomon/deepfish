@@ -31,7 +31,6 @@ export const workflowRouter = createTRPCRouter({
   getWorkflowBySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      console.log("getWorkflowBySlug", input.slug);
       const workflow = await ctx.db.query.workflows.findFirst({
         where: (w, { eq }) => eq(lower(w.title), input.slug.toLowerCase()),
       });
@@ -136,10 +135,6 @@ export const workflowRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { workflowUrl, apiKey, workflowDefinition } = input;
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "Not authorized",
-      });
 
       let token = apiKey;
       if (!token) {
@@ -171,12 +166,6 @@ export const workflowRouter = createTRPCRouter({
           );
         }
       };
-
-      console.log("user email", ctx.user?.email);
-      console.log(
-        "does user email include support@deepfi.sh",
-        ctx.user?.email?.includes("support@deepfi.sh"),
-      );
 
       // LOCAL definition path
       if (workflowUrl.startsWith("local://") && workflowDefinition) {
@@ -460,9 +449,6 @@ export const workflowRouter = createTRPCRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
-      console.log("[CHECK CACHED RUN] received input", input);
-      console.log("[CHECK CACHED RUN] input.inputs", input.inputs);
-
       // Generate the same hash as in addRun
       const crypto = await import("crypto");
       const serializedInputs = JSON.stringify({
@@ -470,14 +456,10 @@ export const workflowRouter = createTRPCRouter({
         inputs: input.inputs,
       });
 
-      console.log("[CHECK CACHED RUN] serializedInputs", serializedInputs);
-
       const inputHash = crypto
         .createHash("sha256")
         .update(serializedInputs)
         .digest("hex");
-
-      console.log("[CHECK CACHED RUN] inputHash", inputHash);
 
       // Look for a completed run with this hash
       const cachedRun = await ctx.db.query.workflowRuns.findFirst({
@@ -591,8 +573,6 @@ export const workflowRouter = createTRPCRouter({
             creditsCharged: creditCost,
           },
         });
-
-        console.log("Inngest Event IDs:", ids);
 
         if (!ids || ids.length === 0) {
           // Refund credits if workflow failed to trigger
@@ -716,15 +696,8 @@ export const workflowRouter = createTRPCRouter({
       },
     });
 
-    console.log(
-      `[getUserActiveRuns] Found ${activeRuns.length} active runs for user ${ctx.user.id}`,
-    );
-
     // Filter and process only runs with eventIds (trackable via Inngest)
     const runsWithEventIds = activeRuns.filter((run) => run.eventId);
-    console.log(
-      `[getUserActiveRuns] ${runsWithEventIds.length} runs have eventIds`,
-    );
 
     // For each active run with an eventId, fetch real-time status from Inngest
     const activeRunsWithStatus = await Promise.all(

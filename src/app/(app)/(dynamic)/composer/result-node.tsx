@@ -133,7 +133,6 @@ export default function ResultNode(props: NodeProps) {
               title="Download"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log("CURRENT SRC", currentSrc);
                 downloadFile(currentSrc);
               }}
             >
